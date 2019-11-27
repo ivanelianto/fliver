@@ -10,10 +10,6 @@ public class StartupCommand implements Command
 	@Override
 	public void execute()
 	{
-		clearScreen();
-		System.out.println("==========");
-		System.out.println("| Fliver |");
-		System.out.println("==========");
 		System.out.print("Username : ");
 		username = MyScanner.getString();
 		System.out.print("Password : ");
