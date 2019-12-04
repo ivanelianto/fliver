@@ -9,7 +9,7 @@ public class FileFacade
 
 	private FileFacade()
 	{
-		mainFolder = new Folder();
+		mainFolder = new Folder("");
 	}
 
 	public static FileFacade getInstance()

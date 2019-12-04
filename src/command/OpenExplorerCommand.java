@@ -1,5 +1,7 @@
 package command;
 
+import facade.FileFacade;
+
 public class OpenExplorerCommand implements Command
 {
 
@@ -7,11 +9,13 @@ public class OpenExplorerCommand implements Command
 	public void execute()
 	{
 		displayAllFiles();
-		// TODO: Display Files Base on Owner
 	}
 
 	public void displayAllFiles()
 	{
-		
+		FileFacade.getInstance()
+			.getMainFolder()
+			.retrieveAll();
 	}
+	
 }
