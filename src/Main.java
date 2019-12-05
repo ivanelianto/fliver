@@ -8,8 +8,6 @@ public class Main
 
 	public Main()
 	{
-		FileFacade.getInstance().getMainFolder().addFile(new HTMLFile("index.html"));
-		
 		System.out.println("==========");
 		System.out.println("| Fliver |");
 		System.out.println("==========");
@@ -26,6 +24,7 @@ public class Main
 
 	public static void main(String[] args)
 	{
+		FileFacade.getInstance().getMainFolder().addFile(new HTMLFile("index.html"));
 		new Main();
 	}
 
