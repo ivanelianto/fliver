@@ -29,18 +29,16 @@ public class CommandQueryBuilder
 		try
 		{
 			QueryCommand queryCommand = Constants.commands.get(this.firstCommand).newInstance();
-			
+
 			if (!this.arguments.isEmpty())
 				queryCommand.setArguments((String[]) this.arguments.toArray());
-			
+
 			return queryCommand;
 		}
-		catch (InstantiationException | IllegalAccessException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
+			return new ErrorQueryCommand(firstCommand);
 		}
-		
-		return null;
 	}
 
 }
