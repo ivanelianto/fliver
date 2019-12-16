@@ -2,6 +2,7 @@ package util;
 
 import java.util.HashMap;
 
+import command.ChangeDirectoryCommand;
 import command.ListCommand;
 import command.MakeDirectoryCommand;
 import command.MoveCommand;
@@ -16,6 +17,7 @@ public class Constants
 	static 
 	{
 		commands.put("ls", ListCommand.class);
+		commands.put("cd", ChangeDirectoryCommand.class);
 		commands.put("mkdir", MakeDirectoryCommand.class);
 		commands.put("rm", RemoveCommand.class);
 		commands.put("rmdir", RemoveDirectoryCommand.class);
