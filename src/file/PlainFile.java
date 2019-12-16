@@ -11,9 +11,9 @@ public abstract class PlainFile extends File
 	}
 
 	@Override
-	public final String getName()
+	public final String getFormattedName()
 	{
-		String name = super.getName();
+		String name = super.getFormattedName();
 
 		String nameParts[] = name.split(" ");
 

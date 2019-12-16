@@ -15,9 +15,9 @@ public class Folder extends File
 	}
 
 	@Override
-	public final String getName()
+	public final String getFormattedName()
 	{
-		String name = super.getName();
+		String name = super.getFormattedName();
 
 		String nameParts[] = name.split(" ");
 
@@ -38,6 +38,7 @@ public class Folder extends File
 	public void addFile(File file)
 	{
 		files.add(file);
+		file.setParentFolder(this);
 	}
 
 	public void deleteFile(File file)
@@ -49,7 +50,7 @@ public class Folder extends File
 	{
 		for (File file : files)
 		{
-			System.out.println(file.getName());
+			System.out.println(file.getFormattedName());
 		}
 	}
 
@@ -71,4 +72,8 @@ public class Folder extends File
 		this.container = container;
 	}
 
+	public ArrayList<File> getFiles()
+	{
+		 return this.files;
+	}
 }
