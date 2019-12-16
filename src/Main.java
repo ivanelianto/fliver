@@ -1,5 +1,6 @@
 import command.OpenExplorerCommand;
 import facade.FileFacade;
+import file.Folder;
 import file.HTMLFile;
 import handler.FileHandler;
 
@@ -24,7 +25,17 @@ public class Main
 
 	public static void main(String[] args)
 	{
-		FileFacade.getInstance().getMainFolder().addFile(new HTMLFile("index.html"));
+		Folder mainFolder = FileFacade.getInstance()
+			.getMainFolder();
+		
+		mainFolder.addFile(new HTMLFile("index.html"));
+		
+		Folder something = new Folder("something");
+		mainFolder.addFile(something);
+		
+		Folder a = new Folder("a");
+		something.addFile(a);
+		
 		new Main();
 	}
 

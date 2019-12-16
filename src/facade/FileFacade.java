@@ -6,10 +6,12 @@ public class FileFacade
 {
 	private static FileFacade instance;
 	private Folder mainFolder;
+	private Folder currentFolder;
 
 	private FileFacade()
 	{
-		mainFolder = new Folder("");
+		this.mainFolder = new Folder("/");
+		this.currentFolder = this.mainFolder;
 	}
 
 	public static FileFacade getInstance()
@@ -22,5 +24,15 @@ public class FileFacade
 	public Folder getMainFolder()
 	{
 		return this.mainFolder;
+	}
+
+	public Folder getCurrentFolder()
+	{
+		return this.currentFolder;
+	}
+
+	public void setCurrentFolder(Folder currentFolder)
+	{
+		this.currentFolder = currentFolder;
 	}
 }
