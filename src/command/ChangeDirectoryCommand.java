@@ -9,42 +9,66 @@ import file.Folder;
 
 public class ChangeDirectoryCommand extends QueryCommand
 {
+	private FileFacade fileFacade;
+
+	public ChangeDirectoryCommand()
+	{
+		fileFacade = FileFacade.getInstance();
+	}
+
 	@Override
 	public void execute()
 	{
-		if (this.getArguments() == null)
+		if (!isValidArguments())
 			return;
-		else if (this.getArguments().length > 1)
-		{
-			System.err.println("Too many arguments.");
-			return;
-		}
 
 		String path = this.getArguments()[0];
 		String[] folderNames = path.split("/");
 
-		boolean isFound = false;
+		boolean isFound = true;
 
 		for (String folderName : folderNames)
 		{
-			Folder currentFolder = FileFacade.getInstance().getCurrentFolder();
-			
-			ArrayList<File> sources = currentFolder.getFiles();
-			
-			Folder selectedFolder = this.findDirectory(sources, folderName);
+			Folder currentFolder = fileFacade.getCurrentFolder();
 
-			if (selectedFolder == null)
+			if (isDot(folderName))
+				fileFacade.setCurrentFolder(currentFolder);
+			else if (folderName.equals("..")
+					&& currentFolder.getParentFolder() != null)
+				fileFacade.setCurrentFolder(currentFolder.getParentFolder());
+			else
 			{
-				System.err.println(String.format("'%s' is not a directory.", folderName));
-				continue;
-			}
+				ArrayList<File> sources = currentFolder.getFiles();
+				Folder selectedFolder = this.findDirectory(sources, folderName);
 
-			isFound = true;
-			FileFacade.getInstance().setCurrentFolder(selectedFolder);
+				if (selectedFolder == null)
+				{
+					isFound = false;
+					break;
+				}
+
+				fileFacade.setCurrentFolder(selectedFolder);
+			}
 		}
 
 		if (!isFound)
 			System.err.println("No such file or directory.");
+	}
+	
+	private boolean isValidArguments()
+	{
+		if (this.getArguments().length > 1)
+		{
+			System.err.println("Too many arguments.");
+			return false;
+		}
+		
+		return true;
+	}
+
+	private boolean isDot(String folderName)
+	{
+		return folderName.equals(".");
 	}
 
 	private Folder findDirectory(ArrayList<File> sources, String folderName)
@@ -53,7 +77,9 @@ public class ChangeDirectoryCommand extends QueryCommand
 
 		if (optFile.isPresent())
 		{
-			if (optFile.get() instanceof Folder)
+			if (!(optFile.get() instanceof Folder))
+				System.err.println(String.format("'%s' is not a directory.", folderName));
+			else
 				return (Folder) optFile.get();
 		}
 
