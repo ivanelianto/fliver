@@ -31,7 +31,7 @@ public class CommandQueryBuilder
 			QueryCommand queryCommand = Constants.commands.get(this.firstCommand).newInstance();
 
 			if (!this.arguments.isEmpty())
-				queryCommand.setArguments((String[]) this.arguments.toArray());
+				queryCommand.setArguments(this.arguments.toArray(new String[]{}));
 
 			return queryCommand;
 		}

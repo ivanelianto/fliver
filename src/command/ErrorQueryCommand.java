@@ -15,6 +15,15 @@ public class ErrorQueryCommand extends QueryCommand
 		String text = String.format("'%s' is not recognized as an internal or external command.", this.firstCommand);
 		
 		System.err.println(text);
+		
+		try
+		{
+			Thread.sleep(100);
+		}
+		catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 }
