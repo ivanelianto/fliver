@@ -1,12 +1,18 @@
 package command;
 
+import facade.FileFacade;
+
 public class ListCommand extends QueryCommand
 {
 
 	@Override
 	public void execute()
 	{
-		System.out.println("AE");
+		clearScreen();
+		
+		FileFacade.getInstance()
+			.getCurrentFolder()
+			.retrieveAll();
 	}
 
 }
