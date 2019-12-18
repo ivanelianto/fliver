@@ -5,7 +5,6 @@ import file.Folder;
 
 public class MakeDirectoryCommand extends QueryCommand
 {
-
 	@Override
 	public void execute()
 	{
@@ -24,7 +23,7 @@ public class MakeDirectoryCommand extends QueryCommand
 	{
 		if (!isValidArgumentLength())
 		{
-			System.err.println("Too many arguments.");
+			System.err.println("Missing arguments.");
 			return false;
 		}
 
@@ -35,5 +34,4 @@ public class MakeDirectoryCommand extends QueryCommand
 	{
 		return this.getArguments().length > 0;
 	}
-
 }
