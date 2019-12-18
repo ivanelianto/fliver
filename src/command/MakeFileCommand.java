@@ -25,7 +25,8 @@ public class MakeFileCommand extends QueryCommand
 		}
 	}
 	
-	private boolean isValidArguments()
+	@Override
+	public boolean isValidArguments()
 	{
 		if (!isValidArgumentLength())
 		{

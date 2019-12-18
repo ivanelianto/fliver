@@ -16,7 +16,8 @@ public class RemoveCommand extends QueryCommand
 		}
 	}
 
-	private boolean isValidArguments()
+	@Override
+	public boolean isValidArguments()
 	{
 		if (!isValidArgumentLength())
 		{

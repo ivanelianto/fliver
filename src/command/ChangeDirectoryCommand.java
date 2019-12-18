@@ -61,7 +61,8 @@ public class ChangeDirectoryCommand extends QueryCommand
 			System.err.println("No such file or directory.");
 	}
 
-	private boolean isValidArguments()
+	@Override
+	public boolean isValidArguments()
 	{
 		if (hasExceedMaximunArgumentLength())
 		{

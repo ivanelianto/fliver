@@ -8,20 +8,25 @@ public class QueryCommand implements Command
 {
 	private static final String DUMMY_USER_AND_HOST_NAME = "trainee@fliver";
 	private static final String EXIT_TEXT = "exit";
-	
+
 	private String[] arguments;
 
-	public String[] getArguments()
+	public final String[] getArguments()
 	{
 		if (arguments == null)
 			return new String[] {};
-		
+
 		return this.arguments;
 	}
 
-	public void setArguments(String... arguments)
+	public final void setArguments(String... arguments)
 	{
 		this.arguments = arguments;
+	}
+
+	public boolean isValidArguments()
+	{
+		return true;
 	}
 
 	@Override
@@ -29,14 +34,11 @@ public class QueryCommand implements Command
 	{
 		do
 		{
-			String text = String.format("%s:%s$ ", 
-					DUMMY_USER_AND_HOST_NAME, 
-					FileFacade.getInstance()
-						.getCurrentFolder()
-						.getCompleteFilePath());
-			
+			String text = String.format("%s:%s$ ", DUMMY_USER_AND_HOST_NAME,
+					FileFacade.getInstance().getCurrentFolder().getCompleteFilePath());
+
 			System.out.print(text);
-			
+
 			String queryCommandInput = MyScanner.getString();
 
 			if (queryCommandInput.equalsIgnoreCase(EXIT_TEXT))
@@ -45,7 +47,7 @@ public class QueryCommand implements Command
 			CommandQueryBuilder builder = new CommandQueryBuilder(queryCommandInput);
 			QueryCommand queryCommand = (QueryCommand) builder.getResult();
 			queryCommand.execute();
-			
+
 			try
 			{
 				Thread.sleep(110);
