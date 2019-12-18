@@ -43,7 +43,7 @@ public class Folder extends File
 				.findAny()
 				.isPresent())
 		{
-			System.err.println(String.format("'%s' directory already exists.", 
+			System.err.println(String.format("'%s' directory or file already exists.", 
 					file.getName()));
 			
 			return;

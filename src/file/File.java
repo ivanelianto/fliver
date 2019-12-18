@@ -8,7 +8,9 @@ public abstract class File
 
 	protected String name;
 	private Folder parentFolder;
-
+	
+	public File() { }
+	
 	public File(String name)
 	{
 		this.name = name;

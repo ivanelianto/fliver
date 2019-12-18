@@ -2,6 +2,7 @@ package file;
 
 public class TextFile extends PlainFile
 {
+	public TextFile() { }
 
 	public TextFile(String name)
 	{
@@ -13,5 +14,4 @@ public class TextFile extends PlainFile
 	{
 		
 	}
-
 }

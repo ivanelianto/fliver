@@ -8,6 +8,7 @@ import file.PlainFile;
 
 public class MakeFileCommand extends QueryCommand
 {
+	@SuppressWarnings("unchecked")
 	@Override
 	public void execute()
 	{

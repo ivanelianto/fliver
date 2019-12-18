@@ -4,7 +4,9 @@ public abstract class PlainFile extends File
 {
 	private static final int MAX_NAME_LENGTH_THRESHOLD = 20;
 	private Folder container;
-
+	
+	public PlainFile() { }
+	
 	public PlainFile(String name)
 	{
 		super(name);
@@ -42,5 +44,4 @@ public abstract class PlainFile extends File
 	{
 		this.container = container;
 	}
-
 }
