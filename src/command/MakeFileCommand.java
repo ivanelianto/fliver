@@ -14,7 +14,7 @@ public class MakeFileCommand extends QueryCommand
 		if (!isValidArguments())
 			return;
 		
-		FileBuilder builder = new FileBuilder(String.join(" ", this.getArguments()));
+		FileBuilder builder = new FileBuilder(this.getArguments());
 		ArrayList<PlainFile> files = (ArrayList<PlainFile>) builder.getResult();
 		for (PlainFile file : files)
 		{
@@ -27,7 +27,10 @@ public class MakeFileCommand extends QueryCommand
 	private boolean isValidArguments()
 	{
 		if (!isValidArgumentLength())
+		{
+			System.err.println("Missing arguments.");
 			return false;
+		}
 		
 		return true;
 	}
