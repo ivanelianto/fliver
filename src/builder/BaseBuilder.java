@@ -1,28 +1,33 @@
-package command;
+package builder;
 
 import java.util.ArrayList;
 
-import util.Constants;
-
-public class CommandQueryBuilder
+public abstract class BaseBuilder
 {
-
-	private static final int FIRST_COMMAND_INDEX = 0;
-
-	private String firstCommand;
+	private final static int COMMAND_NAME_INDEX = 0;
+	private String commandName;
 	private ArrayList<String> arguments;
 
-	public CommandQueryBuilder(String query)
+	public BaseBuilder(String query)
 	{
 		String[] queryParts = this.getArgument(query);
 
-		this.firstCommand = queryParts[FIRST_COMMAND_INDEX];
+		this.commandName = queryParts[COMMAND_NAME_INDEX];
 
 		arguments = new ArrayList<String>();
+
 		for (int i = 1; i < queryParts.length; i++)
-		{
 			arguments.add(queryParts[i]);
-		}
+	}
+
+	public String getCommandName()
+	{
+		return this.commandName;
+	}
+
+	public ArrayList<String> getArguments()
+	{
+		return arguments;
 	}
 
 	private String[] getArgument(String query)
@@ -69,21 +74,5 @@ public class CommandQueryBuilder
 		return result.toArray(new String[] {});
 	}
 
-	public QueryCommand getCommand()
-	{
-		try
-		{
-			QueryCommand queryCommand = Constants.commands.get(this.firstCommand).newInstance();
-
-			if (!this.arguments.isEmpty())
-				queryCommand.setArguments(this.arguments.toArray(new String[] {}));
-
-			return queryCommand;
-		}
-		catch (Exception e)
-		{
-			return new ErrorQueryCommand(firstCommand);
-		}
-	}
-
+	public abstract Object getResult();
 }
