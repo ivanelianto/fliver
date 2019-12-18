@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import facade.FileFacade;
+import file.EmptyFile;
 import file.File;
 import file.Folder;
 
@@ -33,28 +34,32 @@ public class ChangeDirectoryCommand extends QueryCommand
 
 			if (isDot(folderName))
 				fileFacade.setCurrentFolder(currentFolder);
-			else if (folderName.equals("..")
-					&& currentFolder.getParentFolder() != null)
+			else if (folderName.equals("..") && currentFolder.getParentFolder() != null)
 				fileFacade.setCurrentFolder(currentFolder.getParentFolder());
 			else
 			{
 				ArrayList<File> sources = currentFolder.getFiles();
-				Folder selectedFolder = this.findDirectory(sources, folderName);
+				File selectedFolder = this.findDirectory(sources, folderName);
 
-				if (selectedFolder == null)
+				if (selectedFolder instanceof EmptyFile)
+				{
+					System.err.println(String.format("'%s' is not a directory.", folderName));
+					return;
+				}
+				else if (selectedFolder == null)
 				{
 					isFound = false;
 					break;
 				}
 
-				fileFacade.setCurrentFolder(selectedFolder);
+				fileFacade.setCurrentFolder((Folder) selectedFolder);
 			}
 		}
 
 		if (!isFound)
 			System.err.println("No such file or directory.");
 	}
-	
+
 	private boolean isValidArguments()
 	{
 		if (this.getArguments().length > 1)
@@ -62,7 +67,7 @@ public class ChangeDirectoryCommand extends QueryCommand
 			System.err.println("Too many arguments.");
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -71,14 +76,14 @@ public class ChangeDirectoryCommand extends QueryCommand
 		return folderName.equals(".");
 	}
 
-	private Folder findDirectory(ArrayList<File> sources, String folderName)
+	private File findDirectory(ArrayList<File> sources, String folderName)
 	{
 		Optional<File> optFile = sources.stream().filter(x -> x.getName().equals(folderName)).findFirst();
 
 		if (optFile.isPresent())
 		{
 			if (!(optFile.get() instanceof Folder))
-				System.err.println(String.format("'%s' is not a directory.", folderName));
+				return new EmptyFile("");
 			else
 				return (Folder) optFile.get();
 		}
