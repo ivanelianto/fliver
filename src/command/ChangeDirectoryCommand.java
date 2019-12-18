@@ -10,6 +10,7 @@ import file.Folder;
 
 public class ChangeDirectoryCommand extends QueryCommand
 {
+	private static final int ARGUMENT_LENGTH = 1;
 	private FileFacade fileFacade;
 
 	public ChangeDirectoryCommand()
@@ -62,13 +63,28 @@ public class ChangeDirectoryCommand extends QueryCommand
 
 	private boolean isValidArguments()
 	{
-		if (this.getArguments().length > 1)
+		if (hasExceedMaximunArgumentLength())
 		{
 			System.err.println("Too many arguments.");
 			return false;
 		}
+		else if (hasTooShortArgumentLength())
+		{
+			System.err.println("Missing arguments.");
+			return false;
+		}
 
 		return true;
+	}
+
+	private boolean hasExceedMaximunArgumentLength()
+	{
+		return this.getArguments().length > ARGUMENT_LENGTH;
+	}
+	
+	private boolean hasTooShortArgumentLength()
+	{
+		return this.getArguments().length < ARGUMENT_LENGTH;
 	}
 
 	private boolean isDot(String folderName)
