@@ -7,11 +7,6 @@ import util.Constants;
 
 public class FileBuilder extends BaseBuilder
 {
-	public FileBuilder(String query)
-	{
-		super(query);
-	}
-
 	@Override
 	public Object getResult()
 	{
