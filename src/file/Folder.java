@@ -37,6 +37,18 @@ public class Folder extends File
 
 	public void addFile(File file)
 	{
+		if (this.files.stream()
+				.filter(x -> x.getName().trim()
+							.equals(file.getName().trim()))
+				.findAny()
+				.isPresent())
+		{
+			System.err.println(String.format("'%s' directory already exists.", 
+					file.getName()));
+			
+			return;
+		}
+		
 		files.add(file);
 		file.setParentFolder(this);
 	}
