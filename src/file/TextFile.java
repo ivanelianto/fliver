@@ -14,4 +14,12 @@ public class TextFile extends PlainFile
 	{
 		
 	}
+
+	@Override
+	public File copy()
+	{
+		TextFile file = new TextFile(this.name);
+		file.setParentFolder(this.getParentFolder());
+		return file;
+	}
 }

@@ -14,4 +14,12 @@ public class HTMLFile extends PlainFile
 	{
 
 	}
+
+	@Override
+	public File copy()
+	{
+		HTMLFile file = new HTMLFile(this.name);
+		file.setParentFolder(this.getParentFolder());
+		return file;
+	}
 }

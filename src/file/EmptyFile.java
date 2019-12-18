@@ -2,7 +2,6 @@ package file;
 
 public class EmptyFile extends File
 {
-
 	public EmptyFile(String name)
 	{
 		super(name);
@@ -17,17 +16,10 @@ public class EmptyFile extends File
 	}
 
 	@Override
-	public Folder getFileContainer()
+	public File copy()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		EmptyFile file = new EmptyFile(this.name);
+		file.setParentFolder(this.getParentFolder());
+		return file;
 	}
-
-	@Override
-	public void setFileContainer(Folder container)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 }

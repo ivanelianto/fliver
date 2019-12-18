@@ -68,8 +68,6 @@ public abstract class File
 
 		return this.name.substring(nameLength - length, nameLength - 1);
 	}
-
-	public abstract Folder getFileContainer();
-
-	public abstract void setFileContainer(Folder container);
+	
+	public abstract File copy();
 }

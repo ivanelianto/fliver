@@ -3,7 +3,6 @@ package file;
 public abstract class PlainFile extends File
 {
 	private static final int MAX_NAME_LENGTH_THRESHOLD = 20;
-	private Folder container;
 	
 	public PlainFile() { }
 	
@@ -33,15 +32,5 @@ public abstract class PlainFile extends File
 		return name;
 	}
 
-	@Override
-	public final Folder getFileContainer()
-	{
-		return this.container;
-	}
 
-	@Override
-	public final void setFileContainer(Folder container)
-	{
-		this.container = container;
-	}
 }

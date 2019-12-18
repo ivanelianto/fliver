@@ -7,7 +7,6 @@ public class Folder extends File
 {
 	private static final int MAX_NAME_LENGTH_THRESHOLD = 15;
 	private ArrayList<File> files;
-	private Folder container;
 	
 	public Folder(String name)
 	{
@@ -38,11 +37,12 @@ public class Folder extends File
 
 	public void addFile(File file)
 	{
-		if (this.files.stream()
+		Optional<File> optFile = this.files.stream()
 				.filter(x -> x.getName().trim()
 							.equals(file.getName().trim()))
-				.findAny()
-				.isPresent())
+				.findAny();
+		
+		if (optFile.isPresent())
 		{
 			System.err.println(String.format("'%s' directory or file already exists.", 
 					file.getName()));
@@ -80,19 +80,15 @@ public class Folder extends File
 	@Override
 	public void run()
 	{
-
+		
 	}
 
 	@Override
-	public Folder getFileContainer()
+	public File copy()
 	{
-		return this.container;
-	}
-
-	@Override
-	public void setFileContainer(Folder container)
-	{
-		this.container = container;
+		Folder folder = new Folder(this.name);
+		folder.setParentFolder(this.getParentFolder());
+		return folder;
 	}
 
 	public ArrayList<File> getFiles()
