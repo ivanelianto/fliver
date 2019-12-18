@@ -1,6 +1,7 @@
 package file;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Folder extends File
 {
@@ -53,9 +54,19 @@ public class Folder extends File
 		file.setParentFolder(this);
 	}
 
-	public void deleteFile(File file)
+	public void deleteFile(String fileName)
 	{
-		files.remove(file);
+		Optional<File> optSelectedFile = files.stream()
+				.filter(x -> x.getName().trim().equals(fileName.trim()))
+				.findAny();
+		
+		if (!optSelectedFile.isPresent())
+		{
+			System.err.println("The system cannot find the file speficied.");
+			return;
+		}
+		
+		files.remove(optSelectedFile.get());
 	}
 
 	public void retrieveAll()
