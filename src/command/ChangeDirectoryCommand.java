@@ -95,7 +95,9 @@ public class ChangeDirectoryCommand extends QueryCommand
 
 	private File findDirectory(ArrayList<File> sources, String folderName)
 	{
-		Optional<File> optFile = sources.stream().filter(x -> x.getName().equals(folderName)).findFirst();
+		Optional<File> optFile = sources.stream()
+				.filter(x -> x.getName().equals(folderName))
+				.findFirst();
 
 		if (optFile.isPresent())
 		{
