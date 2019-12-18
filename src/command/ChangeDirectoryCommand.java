@@ -35,8 +35,10 @@ public class ChangeDirectoryCommand extends QueryCommand
 
 			if (isDot(folderName))
 				fileFacade.setCurrentFolder(currentFolder);
-			else if (folderName.equals("..") && currentFolder.getParentFolder() != null)
+			else if (isDoubleDot(folderName) && currentFolder.getParentFolder() != null)
 				fileFacade.setCurrentFolder(currentFolder.getParentFolder());
+			else if (isTilde(folderName))
+				fileFacade.setCurrentFolder(fileFacade.getMainFolder());
 			else
 			{
 				ArrayList<File> sources = currentFolder.getFiles();
@@ -82,7 +84,7 @@ public class ChangeDirectoryCommand extends QueryCommand
 	{
 		return this.getArguments().length > ARGUMENT_LENGTH;
 	}
-	
+
 	private boolean hasTooShortArgumentLength()
 	{
 		return this.getArguments().length < ARGUMENT_LENGTH;
@@ -93,11 +95,19 @@ public class ChangeDirectoryCommand extends QueryCommand
 		return folderName.equals(".");
 	}
 
+	private boolean isDoubleDot(String folderName)
+	{
+		return folderName.equals("..");
+	}
+
+	private boolean isTilde(String folderName)
+	{
+		return folderName.equals("~");
+	}
+
 	private File findDirectory(ArrayList<File> sources, String folderName)
 	{
-		Optional<File> optFile = sources.stream()
-				.filter(x -> x.getName().equals(folderName))
-				.findFirst();
+		Optional<File> optFile = sources.stream().filter(x -> x.getName().equals(folderName)).findFirst();
 
 		if (optFile.isPresent())
 		{
