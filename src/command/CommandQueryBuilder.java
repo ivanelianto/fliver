@@ -14,7 +14,8 @@ public class CommandQueryBuilder
 
 	public CommandQueryBuilder(String query)
 	{
-		String[] queryParts = query.split(" ");
+		String[] queryParts = this.getArgument(query);
+
 		this.firstCommand = queryParts[FIRST_COMMAND_INDEX];
 
 		arguments = new ArrayList<String>();
@@ -24,6 +25,50 @@ public class CommandQueryBuilder
 		}
 	}
 
+	private String[] getArgument(String query)
+	{
+		ArrayList<String> result = new ArrayList<>();
+
+		String[] queryParts = query.split(" ");
+
+		int startPartIndex = -1;
+
+		for (int i = 0; i < queryParts.length; i++)
+		{
+			String queryPart = queryParts[i];
+
+			if (queryPart.contains("\""))
+			{
+				if (startPartIndex != -1)
+				{
+					StringBuilder sb = new StringBuilder();
+
+					for (int j = startPartIndex; j <= i; j++)
+					{
+						sb.append(queryParts[j]);
+						sb.append(" ");
+					}
+
+					result.add(sb.toString().replace("\"", "").trim());
+
+					startPartIndex = -1;
+					continue;
+				}
+
+				startPartIndex = i;
+			}
+			else
+			{
+				if (startPartIndex != -1)
+					continue;
+
+				result.add(queryPart.trim());
+			}
+		}
+
+		return result.toArray(new String[] {});
+	}
+
 	public QueryCommand getCommand()
 	{
 		try
@@ -31,7 +76,7 @@ public class CommandQueryBuilder
 			QueryCommand queryCommand = Constants.commands.get(this.firstCommand).newInstance();
 
 			if (!this.arguments.isEmpty())
-				queryCommand.setArguments(this.arguments.toArray(new String[]{}));
+				queryCommand.setArguments(this.arguments.toArray(new String[] {}));
 
 			return queryCommand;
 		}
