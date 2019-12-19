@@ -24,20 +24,24 @@ public class ChangeDirectoryCommand extends QueryCommand
 		if (!isValidArguments())
 			return;
 
-		String path = this.getArguments()[0];
-		String[] folderNames = path.split("/");
-
+		String startPath = this.getArguments()[0].trim();
+		
+		if (startPath.startsWith("/"))
+			startPath = "~/" + startPath.substring(1);
+		
+		String[] folderNames = startPath.split("/");
+		
 		boolean isFound = true;
 
 		for (String folderName : folderNames)
 		{
 			Folder currentFolder = fileFacade.getCurrentFolder();
 
-			if (isDot(folderName))
+			if (isDotIndicator(folderName))
 				fileFacade.setCurrentFolder(currentFolder);
-			else if (isDoubleDot(folderName) && currentFolder.getParentFolder() != null)
+			else if (isDoubleDotIndicator(folderName) && currentFolder.getParentFolder() != null)
 				fileFacade.setCurrentFolder(currentFolder.getParentFolder());
-			else if (isTilde(folderName))
+			else if (isRootIndicator(folderName))
 				fileFacade.setCurrentFolder(fileFacade.getMainFolder());
 			else
 			{
@@ -90,17 +94,17 @@ public class ChangeDirectoryCommand extends QueryCommand
 		return this.getArguments().length < ARGUMENT_LENGTH;
 	}
 
-	private boolean isDot(String folderName)
+	private boolean isDotIndicator(String folderName)
 	{
 		return folderName.equals(".");
 	}
 
-	private boolean isDoubleDot(String folderName)
+	private boolean isDoubleDotIndicator(String folderName)
 	{
 		return folderName.equals("..");
 	}
 
-	private boolean isTilde(String folderName)
+	private boolean isRootIndicator(String folderName)
 	{
 		return folderName.equals("~");
 	}
