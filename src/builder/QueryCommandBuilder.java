@@ -6,12 +6,12 @@ import command.ErrorQueryCommand;
 import command.QueryCommand;
 import util.Constants;
 
-public class CommandQueryBuilder extends BaseBuilder
+public class QueryCommandBuilder extends BaseBuilder
 {
 	private final static int COMMAND_NAME_INDEX = 0;
 	private String commandName;
 
-	public CommandQueryBuilder(String query)
+	public QueryCommandBuilder(String query)
 	{
 		int firstSpaceIndex = query.indexOf(" ");
 
@@ -61,6 +61,9 @@ public class CommandQueryBuilder extends BaseBuilder
 		for (int i = 0; i < queryParts.length; i++)
 		{
 			String queryPart = queryParts[i];
+			
+			if (queryPart.equals(""))
+				continue;
 
 			if (queryPart.contains("\""))
 			{
@@ -74,7 +77,7 @@ public class CommandQueryBuilder extends BaseBuilder
 						sb.append(" ");
 					}
 
-					result.add(sb.toString().replace("\"", "").trim());
+					result.add(sb.toString().replace("\"", ""));
 
 					startPartIndex = -1;
 					continue;

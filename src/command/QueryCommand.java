@@ -1,6 +1,6 @@
 package command;
 
-import builder.CommandQueryBuilder;
+import builder.QueryCommandBuilder;
 import facade.FileFacade;
 import util.MyScanner;
 
@@ -44,7 +44,7 @@ public class QueryCommand implements Command
 			if (queryCommandInput.equalsIgnoreCase(EXIT_TEXT))
 				return;
 
-			CommandQueryBuilder builder = new CommandQueryBuilder(queryCommandInput);
+			QueryCommandBuilder builder = new QueryCommandBuilder(queryCommandInput);
 			QueryCommand queryCommand = (QueryCommand) builder.getResult();
 			queryCommand.execute();
 
