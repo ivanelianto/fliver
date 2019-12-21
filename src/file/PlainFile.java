@@ -38,10 +38,12 @@ public abstract class PlainFile extends File
 
 	public String getContent()
 	{
+		if (this.content == null)
+			this.content = "";
+		
 		return content;
 	}
 	
-
 	public void setContent(String content)
 	{
 		this.content = content;

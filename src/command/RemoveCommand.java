@@ -12,7 +12,9 @@ public class RemoveCommand extends QueryCommand
 
 		for (String argument : this.getArguments())
 		{
-			FileFacade.getInstance().getCurrentFolder().deleteFile(argument);
+			FileFacade.getInstance()
+				.getCurrentFolder()
+				.deleteFile(argument);
 		}
 	}
 
