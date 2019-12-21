@@ -3,9 +3,13 @@ package file;
 public abstract class PlainFile extends File
 {
 	private static final int MAX_NAME_LENGTH_THRESHOLD = 20;
-	
-	public PlainFile() { }
-	
+
+	private String content;
+
+	public PlainFile()
+	{
+	}
+
 	public PlainFile(String name)
 	{
 		super(name);
@@ -28,9 +32,19 @@ public abstract class PlainFile extends File
 
 			return String.format("%s %s %s", permission, createTime, fileName);
 		}
-		
+
 		return name;
 	}
 
+	public String getContent()
+	{
+		return content;
+	}
+	
+
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
 
 }
