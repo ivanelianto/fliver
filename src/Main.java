@@ -1,8 +1,8 @@
-import command.OpenExplorerCommand;
+import command.QueryCommand;
 import facade.FileFacade;
 import file.Folder;
 import file.HTMLFile;
-import handler.FileHandler;
+import handler.QueryCommandHandler;
 
 public class Main
 {
@@ -19,8 +19,8 @@ public class Main
 //		while (true)
 //			handler.process(new StartupCommand());
 		
-		FileHandler fileHandler = new FileHandler();
-		fileHandler.process(new OpenExplorerCommand());
+		QueryCommandHandler queryCommandHandler = new QueryCommandHandler();
+		queryCommandHandler.process(new QueryCommand());
 	}
 
 	public static void main(String[] args)

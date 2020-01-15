@@ -103,7 +103,7 @@ public class MoveCommand extends QueryCommand
 		Folder currentFolder = FileFacade.getInstance().getCurrentFolder();
 
 		return currentFolder.getFiles().stream()
-				.filter(x -> x.getName().trim().equals(fileName))
+				.filter(x -> x.getName().trim().equals(fileName.trim()))
 				.findAny()
 				.orElse(new EmptyFile(""));
 	}

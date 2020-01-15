@@ -35,7 +35,7 @@ public class Folder extends File
 		return name;
 	}
 
-	public void addFile(File file)
+	public boolean addFile(File file)
 	{
 		Optional<File> optFile = this.files.stream()
 				.filter(x -> x.getName().trim()
@@ -47,11 +47,12 @@ public class Folder extends File
 			System.err.println(String.format("'%s' directory or file already exists.", 
 					file.getName()));
 			
-			return;
+			return false;
 		}
 		
 		files.add(file);
 		file.setParentFolder(this);
+		return true;
 	}
 
 	public void deleteFile(String fileName)
@@ -62,7 +63,7 @@ public class Folder extends File
 		
 		if (!optSelectedFile.isPresent())
 		{
-			System.err.println("The system cannot find the file speficied.");
+			System.err.println("The system cannot find the file specified.");
 			return;
 		}
 		

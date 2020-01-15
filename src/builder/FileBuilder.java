@@ -37,8 +37,6 @@ public class FileBuilder extends BaseBuilder
 			}
 		}
 		
-		System.out.println(String.format("%d file(s) created.", files.size()));
-		
 		return files;
 	}
 }

@@ -1,6 +1,7 @@
 package command;
 
 import facade.FileFacade;
+import file.File;
 import file.Folder;
 
 public class MakeDirectoryCommand extends QueryCommand
@@ -11,11 +12,25 @@ public class MakeDirectoryCommand extends QueryCommand
 		if (!isValidArguments())
 			return;
 
+		int count = 0;
+		
 		for (String argument : this.getArguments())
 		{
-			FileFacade.getInstance()
+			File folder = new Folder(argument);
+			
+			count = FileFacade.getInstance()
 				.getCurrentFolder()
-				.addFile(new Folder(argument));
+				.addFile(folder) ? ++count : count;
+		}
+		
+		try
+		{
+			long sleepTime = this.getArguments().length * 150;
+			Thread.sleep(sleepTime);
+			System.out.println(String.format("%d file(s) created.", count));
+		}
+		catch (InterruptedException e)
+		{
 		}
 	}
 

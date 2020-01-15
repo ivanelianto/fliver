@@ -1,5 +1,8 @@
 package file;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public abstract class File
 {
 	public static final int PERMISSION_INDEX = 0;
@@ -8,11 +11,16 @@ public abstract class File
 
 	protected String name;
 	private Folder parentFolder;
-	
-	public File() { }
-	
+	private Date createdAt;
+
+	public File()
+	{
+		this.createdAt = new Date();
+	}
+
 	public File(String name)
 	{
+		this();
 		this.name = name;
 	}
 
@@ -41,10 +49,10 @@ public abstract class File
 		if (this.parentFolder != null)
 		{
 			String parentFolderName = this.parentFolder.getCompleteFilePath();
-			
+
 			if (parentFolderName.equals("/"))
-				return String.format("%s%s", parentFolderName, this.name); 
-			
+				return String.format("%s%s", parentFolderName, this.name);
+
 			return String.format("%s/%s", parentFolderName, this.name);
 		}
 
@@ -56,8 +64,10 @@ public abstract class File
 	public String getFormattedName()
 	{
 		StringBuilder sb = new StringBuilder();
-		sb.append("---------- ");
-		sb.append("00:00 ");
+
+		SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+		sb.append(String.format("%s | ", dateFormatter.format(this.createdAt)));
+
 		sb.append(name);
 		return sb.toString();
 	}
@@ -68,6 +78,6 @@ public abstract class File
 
 		return this.name.substring(nameLength - length, nameLength - 1);
 	}
-	
+
 	public abstract File copy();
 }

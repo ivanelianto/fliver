@@ -32,7 +32,7 @@ public class ReadFileContentCommand extends QueryCommand
 			if (file instanceof PlainFile)
 				System.out.println(((PlainFile) file).getContent());
 			else
-				System.err.println(String.format("'%s' is a folder.", file.getName()));
+				System.err.println(String.format("'%s' is a directory.", file.getName()));
 		}
 		else
 			System.err.println("File not found.");

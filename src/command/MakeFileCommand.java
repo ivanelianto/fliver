@@ -20,11 +20,24 @@ public class MakeFileCommand extends QueryCommand
 		
 		FileBuilder builder = new FileBuilder(this.getArguments());
 		ArrayList<PlainFile> files = (ArrayList<PlainFile>) builder.getResult();
+		
+		int count = 0;
+		
 		for (PlainFile file : files)
 		{
-			FileFacade.getInstance()
+			count = FileFacade.getInstance()
 				.getCurrentFolder()
-				.addFile(file);
+				.addFile(file) ? ++count : count;
+		}
+		
+		try
+		{
+			long sleepTime = this.getArguments().length * 150;
+			Thread.sleep(sleepTime);
+			System.out.println(String.format("%d file(s) created.", count));
+		}
+		catch (InterruptedException e)
+		{
 		}
 	}
 	
